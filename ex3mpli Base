@@ -28,9 +28,9 @@ void ex3mpli()
   while(!xChsell && !xCrossfire);
   
   DWORD Wallhack;
-  WallHack = FindPattern((DWORD)GetModuleHandleA("crossfire.exe"), 0x467F74, (PBYTE)"\xB8\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x8B\x06\x8B\x50\x18\x8D\x4C\x24\x58", "x????x????xxxxxxxxx");
-  WallHack = *(DWORD *)(WallHack + 0x01);
-  WallHack + 0xA4;
+  Wallhack = FindPattern((DWORD)GetModuleHandleA("crossfire.exe"), 0x467F74, (PBYTE)"\xB8\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x8B\x06\x8B\x50\x18\x8D\x4C\x24\x58", "x????x????xxxxxxxxx");
+  Wallhack = *(DWORD *)(Wallhack + 0x01);
+  Wallhack + 0xA4;
 }
 
 bool ex3mpliReady() {
