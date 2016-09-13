@@ -21,15 +21,15 @@ void ex3mpli()
   static DWORD xCShell, xCrossfire;
   
   do {
-    xCShell      =   (DWORD)GetModuleHandleW("CShell.dll");
-    xCrossfire   =   (DWORD)GetModuleHandleW("crossfire.exe");
+    xCShell      =   (DWORD)GetModuleHandleA("CShell.dll");
+    xCrossfire   =   (DWORD)GetModuleHandleA("crossfire.exe");
   }
   
-  while(!xChsell && !xCrossfire);
+  while(!xCShell && !xCrossfire);
   
   DWORD Wallhack;
   Wallhack = FindPattern((DWORD)GetModuleHandleA("crossfire.exe"), 0x467F74, (PBYTE)"\xB8\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x8B\x06\x8B\x50\x18\x8D\x4C\x24\x58", "x????x????xxxxxxxxx");
-  Wallhack = *(DWORD *)(Wallhack + 0x01);
+  Wallhack = *(DWORD*)(Wallhack + 0x01);
   Wallhack + 0xA4;
 }
 
