@@ -33,7 +33,7 @@ ofile << logbuf << endl;
 
 void logging(HMODULE hDll){
 DisableThreadLibraryCalls(hDll);
-GetModuleFileName(hDll, dlldirectory, 512);
+GetModuleFileNameA(hDll, dlldirectory, 512);
 for(int i = strlen(dlldirectory); i > 0; i--) { if(dlldirectory[i] == '\\') { dlldirectory[i+1] = 0; break; } }
 ofile.open(GetDirectoryFile("Adresses.txt"), ios::app); // here put the output filename
 }
