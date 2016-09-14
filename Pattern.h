@@ -15,7 +15,7 @@ return (*zzMask)==NULL;
 DWORD FindPattern(DWORD zAddress,DWORD zLen,BYTE *bMask,char * zzMask)
 {
 for(DWORD j = 0; j < zLen; j++)
-if( bCompare((BYTE*)(zwAddress+j),bMask,zzMask))
+if( bCompare((BYTE*)(zAddress+j),bMask,zzMask))
 return (DWORD)(zAddress+j);
 return false;
 }
