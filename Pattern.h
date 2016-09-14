@@ -1,21 +1,21 @@
-DWORD dwSize;
-DWORD dwStartAddress;
+DWORD zSize;
+DWORD zStartAddress;
 
-BOOL bCompare(const BYTE* pData, const BYTE* bMask, const char* szMask)
+BOOL bCompare(const BYTE* zData, const BYTE* zMask, const char* zzMask)
 {
-for(;*szMask;++szMask,++pData,++bMask)
+for(;*zzMask;++zzMask,++zData,++zMask)
 {
-if(*szMask == 'x' && *pData != *bMask)
-return 0;
+if(*zzMask == 'x' && *zData != *zMask)
+return false;
 }
-return (*szMask)==NULL;
+return (*zzMask)==NULL;
 }
 
 
-DWORD FindPattern(DWORD dwAddress,DWORD dwLen,BYTE *bMask,char * szMask)
+DWORD FindPattern(DWORD zAddress,DWORD zLen,BYTE *zMask,char * zzMask)
 {
-for(DWORD i=0; i < dwLen; i++)
-if( bCompare( (BYTE*)( dwAddress+i ),bMask,szMask) )
-return (DWORD)(dwAddress+i);
-return 0;
+for(DWORD j = 0; j < zLen; j++)
+if( bCompare((BYTE*)(dwAddress+j),zMask,zzMask))
+return (DWORD)(zAddress+j);
+return false;
 }
