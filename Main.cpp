@@ -16,27 +16,32 @@ void ex3mpli()
 }
   while(1) {
   dwSize = 0x400000; 
-
-//Example DWORD dwPlayerPointer = FindPattern((PBYTE)"\x00\x00\x00\x00\x00\x00\x00};", "x????xxxx", 1, true);
-
-  DWORD nametags1 = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0x9c0000, (PBYTE)"\x75\x21\x80\x7B\x00\x00", "xxxx??");
-  DWORD nametags2 = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0x9c0000, (PBYTE)"\x75\x05\xBD\x00\x00\x00\x00\x8B\x17", "xxx????xx");
-//-------------------------------------------------------------//
-  Writelog("//=================== ex3mpli Logger ===================\\");
-  Writelog("//============== Created and developed by: ==============\\");
-  Writelog("//====================== ex3mpli ===================\\");
-  Writelog("//====================== Crossfire ===================\\");
-  Writelog("//====================== Philippines ===================\\");
+  
+  DWORD aIntersectSegment = FindPattern((DWORD)GetModuleHandle("Crossfire.exe"), 0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","xxxxxxxxxxxxxxxx????");
+  DWORD NoReload          = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x75\x21\x80\x7B\x00\x00", "xxxx??");
+  DWORD NoFallDamage      = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x75\x05\xBD\x00\x00\x00\x00\x8B\x17", "xxx????xx");
+  WeaponMgr               = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x04\xB1\xD9\xE8", "xx????xxxxx");
+  DWORD WallArray         = FindPattern(0x400000, 0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","x?xx????xx????x");
+  PlayerMgr               = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x15\x00\x00\x00\x00\xD9\x80\x00\x00\x00\x00\xD9\x9C\x16\x00\x00\x00\x00\xD9\x80\x00\x00\x00\x00\xA1\x00\x00\x00\x00", "xx????xx????xxx????xx????x????");
+  DamageZone              = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x68\x00\x00\x00\x00\x8D\x4C\x24\x24\x51\x8D\x54\x24\x34\x52", "x????xxxxxxxxxx");
+  ChangeWeaponAnimRatio   = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55", "xx????x");
+  
+  
+  Writelog("\t\t----------| Crossfire Philippines |----------");
+  Writelog("\t\t--------------| ex3mpli Logger |--------------");
   Writelog("");
-  Writelog("#define NoReload 0x%X",NoReload);
-  Writelog("#define FallDamage 0x%X",FallDamage);
-
-
   Writelog("");
-  Writelog("//*************************Next log*********************************");
-
-
-
+  Writelog("\t\t-----------| CShell |---------");
+  Writelog("\t\t#define ChangeWeaponAnimRatio 0x%X",ChangeWeaponAnimRatio);
+  Writelog("\t\t#define DamageZone 0x%X",DamageZone);
+  Writelog("\t\t#define PlayerMgr 0x%X",PlayerMgr);
+  Writelog("\t\t#define WeaponMgr 0x%X",WeaponMgr);
+  Writelog("\t\t#define NoReload 0x%X",NoReload);
+  Writelog("\t\t#define FallDamage 0x%X",FallDamage);
+  Writelog("");
+  Writelog("\t\t-----------| Crossfire |---------");
+  Writelog("\t\t#define WallArray 0x%%X",WallArray);
+  Writelog("\t\t-----------| ex3mpli Logger END! |---------");
   ExitProcess(false);
   }
 }
