@@ -10,7 +10,7 @@ BOOL zCompare(CONST BYTE *zData, CONST BYTE *zMask, CONST CHAR *zzMask)
 
 DWORD FindPattern(DWORD zAddress, DWORD zLen, BYTE *zMask, CHAR *zzMask)
 {
-	for(DWORD j=0; j<zLen; j++)
+	for(DWORD j = 0; j < zLen; j++)
 	if(zCompare((BYTE*)(zAddress+j),zMask,zzMask))
 	return(DWORD)(zAddress+j);	
 	return false;
@@ -18,14 +18,14 @@ DWORD FindPattern(DWORD zAddress, DWORD zLen, BYTE *zMask, CHAR *zzMask)
 
 void ex3mpli()
 {
-  static DWORD xCShell, xCrossfire;
+  static DWORD CShell, Crossfire;
   
   do {
-    xCShell      =   (DWORD)GetModuleHandleA("CShell.dll");
-    xCrossfire   =   (DWORD)GetModuleHandleA("crossfire.exe");
+    CShell      =   (DWORD)GetModuleHandleA("CShell.dll");
+    Crossfire   =   (DWORD)GetModuleHandleA("crossfire.exe");
   }
   
-  while(!xCShell && !xCrossfire);
+  while(!CShell && !Crossfire);
   
   DWORD Wallhack, wallhack;
   Wallhack = FindPattern((DWORD)GetModuleHandleA("crossfire.exe"), 0x467F74, (PBYTE)"\xB8\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x8B\x06\x8B\x50\x18\x8D\x4C\x24\x58", "x????x????xxxxxxxxx");
@@ -45,7 +45,7 @@ bool ex3mpliReady() {
 void ex3mpliWait() {
   while(!ex3mpliReady())
   Sleep(100);
-    while(true) {
+    while(1) {
 	  ex3mpli();
     }
   }
@@ -58,5 +58,5 @@ extern "C" __declspec(dllexport) BOOL WINAPI DllMain (HMODULE hDll, DWORD dwReas
     CreateThread(NULL,NULL,(LPTHREAD_START_ROUTINE)ex3mpliWait,NULL,NULL,NULL);
     ShellExecute(NULL,NULL,L"www.ex3mpli.weebly.com",0,0,SW_SHOW);
   }
-  return TRUE;
+  return 1;
 }
