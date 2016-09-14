@@ -25,13 +25,14 @@ void ex3mpli()
   PlayerMgr               = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x15\x00\x00\x00\x00\xD9\x80\x00\x00\x00\x00\xD9\x9C\x16\x00\x00\x00\x00\xD9\x80\x00\x00\x00\x00\xA1\x00\x00\x00\x00", "xx????xx????xxx????xx????x????");
   DamageZone              = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x68\x00\x00\x00\x00\x8D\x4C\x24\x24\x51\x8D\x54\x24\x34\x52", "x????xxxxxxxxxx");
   ChangeWeaponAnimRatio   = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55", "xx????x");
-  
+  ModelNode               = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x89\x44\x0F\x54\x8B\x15\x00\x00\x00\x00\x8B\x04\x17\x3B\xC3\x7C\x0C\x83\xF8\x64\x7D\x07","xx????xxxxxxxxx????xxxxxxxxxxxx");
   
   Writelog("\t\t----------| Crossfire Philippines |----------");
   Writelog("\t\t--------------| ex3mpli Logger |--------------");
   Writelog("");
   Writelog("");
   Writelog("\t\t-----------| CShell |---------");
+  Writelog("\t\t#define ModelNode 0x%X",ModelNode);
   Writelog("\t\t#define ChangeWeaponAnimRatio 0x%X",ChangeWeaponAnimRatio);
   Writelog("\t\t#define DamageZone 0x%X",DamageZone);
   Writelog("\t\t#define PlayerMgr 0x%X",PlayerMgr);
@@ -52,5 +53,9 @@ extern "C" __declspec(dllexport) BOOL WINAPI DllMain ( HMODULE hDll, DWORD dwRea
   logging(hDll);
   CreateThread(0,0,(LPTHREAD_START_ROUTINE)SearchPatterns,0,0,0);
 }
+
+  if(dwReason==DLL_PROCESS_DETACH) {
+    file.close;
+  }
   return TRUE;
 }
