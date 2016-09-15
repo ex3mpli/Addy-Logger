@@ -15,7 +15,7 @@ void ex3mpli()
   Sleep(100);
 }
   while(1) {
-  dwSize = 0x500000; 
+  zSize = 0x500000; 
   DWORD CShell      = (DWORD)GetModuleHandleA("CShell.dll");
   DWORD Crossfire   = (DWORD)GetModuleHandleA("crossfire.exe");
   
