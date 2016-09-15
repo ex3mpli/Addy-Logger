@@ -23,7 +23,7 @@ void ex3mpli()
   WeaponMgr = *(DWORD*)(WeaponMgr + 0x2) - CShell;
  
   DWORD WallArray = FindPattern(0x400000,0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","x?xx????xx????x");
-  WallArray = *(DWORD*)(WallArray + 0xA4) - Crossfire;
+  WallArray = *(DWORD*)(WallArray + 0xA) - Crossfire;
  
   DWORD PlayerMgr = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x8B\x15\x00\x00\x00\x00\xD9\x80\x00\x00\x00\x00\xD9\x9C\x16\x00\x00\x00\x00\xD9\x80\x00\x00\x00\x00\xA1\x00\x00\x00\x00","xx????xx????xxx????xx????x????");
   PlayerMgr = *(DWORD *)(PlayerMgr + 0x03) - CShell;
@@ -43,7 +43,7 @@ void ex3mpli()
   Writelog("#define ModelNode \t\t0x00%X" ModelNode);
   Writelog("");
   Writelog("-----------------------| Crossfire |---------------------");
-  Writelog("#define WallArray \t\t0x00%X",WallArray);
+  Writelog("#define WallArray \t\t0x00%X",WallArray+0xA4);
   Writelog("------------------| ex3mpli Logger END! |----------------");
   ExitProcess(false);
   }
