@@ -24,15 +24,16 @@ void ex3mpli()
   DWORD WallArray         = FindPattern(0x400000,0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","x?xx????xx????x");
   DWORD DamageZone        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8D\x4C\x24\x24\x51\x8D\x54\x24\x34\x52","x????xxxxxxxxxx");
   DWORD ModelNode         = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x89\x44\x0F\x54\x8B\x15\x00\x00\x00\x00\x8B\x04\x17\x3B\xC3\x7C\x0C\x83\xF8\x64\x7D\x07","xx????xxxxxxxxx????xxxxxxxxxxxx");
-  DWORD NoReload          = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x98\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00", "xx????xx????")
+  DWORD NoReload          = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x98\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00", "xx????xx????");
   DWORD FastChange        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00","xx????xx????");
   DWORD FastKnife1        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x9C\xB9\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\xA6","xxx????xxxxxxxxxxx");
   DWORD FastKnife2        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x9C\xB8\x00\x00\x00\x00\x8B\x4C\x24\x14","xxx????xxxx");
-  DWORD AmmoDamge         = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\xD9\x83\x00\x00\x00\x00\x51\x8B\xCE\xD9\x1C\x24\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x6A\x00","x????xxx????xx????xxxxxxx????xxx????xxx????xx");
+  DWORD AmmoDamage        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\xD9\x83\x00\x00\x00\x00\x51\x8B\xCE\xD9\x1C\x24\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x6A\x00","x????xxx????xx????xxxxxxx????xxx????xxx????xx");
   
   Writelog("_______________________________________________");
-  Writelog("|           Crossfire Philippines             |");
-  Writelog("|              ex3mpli Logger                 |");
+  Writelog("|         | Crossfire Philippines |           |");
+  Writelog("|         |    ex3mpli Logger     |           |");
+  Writelog("|         | Crossfire Philippines |           |");
   Writelog("_______________________________________________");
   Writelog("");
   Writelog("#define WallArray \t0x00%X",WallArray);
