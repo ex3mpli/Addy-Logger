@@ -48,8 +48,6 @@ void ex3mpli()
   }
 }
 
-
-
 extern "C" __declspec(dllexport) BOOL WINAPI DllMain ( HMODULE hDll, DWORD dwReason, LPVOID lpReserved ) {
   DisableThreadLibraryCalls(hDll);
   if (dwReason==DLL_PROCESS_ATTACH) {
