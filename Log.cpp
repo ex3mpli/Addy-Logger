@@ -35,5 +35,5 @@ void logging(HMODULE hDll){
 DisableThreadLibraryCalls(hDll);
 GetModuleFileNameA(hDll, dlldirectory, 512);
 for(int j = strlen(dlldirectory); j > 0; j--) { if(dlldirectory[j] == '\\') { dlldirectory[j+1] = 0; break; } }
-ofile.open(GetDirectoryFile("ex3mpli Addy Logger.txt"), ios::app);
+ofile.open(GetDirectoryFile("Logger.txt"), ios::app);
 }
