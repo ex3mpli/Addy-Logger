@@ -36,7 +36,6 @@ void ex3mpli()
   Writelog("----------------| Crossfire Philippines |----------------");
   Writelog("-----------------| ex3mpli Addy Logger |-----------------");
   Writelog("-----------------------| CShell |---------------------");
-  Writelog("#define ChangeWeaponAnimRatio 0x%X",ChangeWeaponAnimRatio);
   Writelog("#define DamageZone \t\t0x00%X",DamageZone);
   Writelog("#define PlayerMgr \t\t0x00%X",PlayerMgr);
   Writelog("#define WeaponMgr \t\t0x00%X",WeaponMgr);
