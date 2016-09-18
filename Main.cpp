@@ -66,8 +66,18 @@ while(!ex3mpliReady) {
   DWORD FastKnife1        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x9C\xB9\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\xA6","xxx????xxxxxxxxxxx");
   DWORD FastKnife2        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x9C\xB8\x00\x00\x00\x00\x8B\x4C\x24\x14","xxx????xxxx");
   DWORD AmmoDamage        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\xD9\x83\x00\x00\x00\x00\x51\x8B\xCE\xD9\x1C\x24\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x6A\x00","x????xxx????xx????xxxxxxx????xxx????xxx????xx");
+  DWORD NoSpread          = FindPattern(CShell, 0xFFFFFF, (PBYTE)"\xD9\x9C\x39\xAC\x26\x00\x00","xxxxx??");
+  DWORD NoWeight          = (CShell, 0xFFFFFF, (PBYTE)"\xD9\x99\xCC\x0A\x00\x00", "xxxx??");
+  DWORD Overlay           = (CShell, 0xFFFFFF, (PBYTE)"\xD9\x9C\xB9\x28\x24\x00\x00", "xxxxx??");
+  DWORD pCrouchSpeed      = (CShell, 0xFFFFFF, (PBYTE)"\xD9\x5C\x08\x0C", "xxxx");
+  DWORD KnifeRange        = (CShell, 0xFFFFFF, (PBYTE)"\xD9\x9C\xB9\x28\x0A\x00\x00", "xxxxx??");
+  DWORD KnifeDamage       = (CShell, 0xFFFFFF, (PBYTE)"\x8B\x94\x39\xB4\xF5\xFF\xFF", "xxxxxxx");
+  DWORD NoKnockBack       = (CShell, 0xFFFFFF, (PBYTE)"\xD9\x9C\xBA\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\x9D",  "xxx????xxxxxxxxxxx");
+  
   DWORD aIntersectSegment = FindPattern(Crossfire,0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","xxxxxxxxxxxxxxxx????");
+  
   DWORD aILTClient        = FindPattern(CShell, 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x11\x8B\x82\x00\x00\x00\x00","xx????xxxx????");
+  
   DWORD PTCOffset         = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x8B\x88\x00\x00\x00\x00\x68\x00\x00\x00\x00\xFF\xD1\x8B\x0D\x00\x00\x00\x00\x8B\x11\x8B\x82\x00\x00\x00\x00","xx????x????xxxx????xxxx????");
   
   Writelog("    //==============================================\\");
@@ -110,7 +120,13 @@ while(!ex3mpliReady) {
   Writelog("  #deinfe FastChange \t0x00%X",FastChange) - CShell;
   Writelog("  #define FastKnife1 \t0x00%X",FastKnife1) - CShell;
   Writelog("  #define FastKnife2 \t0x00%X",FastKnife2) - CShell;
-  Writelog("  #define AmmoDamge \t0x0%X",AmmoDamage) - CShell;
+  Writelog("  #define AmmoDamge \t0x00%X",AmmoDamage) - CShell;
+  Writelog("  #define NoSpread \t0x00%X",NoSpread) - CShell;
+  Writelog("  #define NoWeight \t0x00%X",NoWeight) - CShell;
+  Writelog("  #define Overlay \t0x00%X",Overlay) - CShell;
+  Writelog("  #define PlayerCrouchSpeed \t0x00%X",pCrouchSpeed) - CShell;
+  Writelog("  #define KnifeRange \t0x00%X",KnifeRange) - CShell;
+  Writelog("  #define KnifeDamage \t0x00%X",KnifeDamage) - CShell;
   Writelog("");
   Writelog("//======================== Other ========================\\");
   Writelog(" ");
