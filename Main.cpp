@@ -73,6 +73,7 @@ while(!ex3mpliReady) {
   DWORD KnifeRange        = (CShell, 0xFFFFFF, (PBYTE)"\xD9\x9C\xB9\x28\x0A\x00\x00", "xxxxx??");
   DWORD KnifeDamage       = (CShell, 0xFFFFFF, (PBYTE)"\x8B\x94\x39\xB4\xF5\xFF\xFF", "xxxxxxx");
   DWORD NoKnockBack       = (CShell, 0xFFFFFF, (PBYTE)"\xD9\x9C\xBA\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\x9D",  "xxx????xxxxxxxxxxx");
+  DWORD GutlingDelay      = (CShell, 0xFFFFFF, (PBYTE)"\xD9\x99\x00\x00\x00\x00\x83\xC4\x04\x68\x00\x00\x00\x00\x53\xE8\x00\x00\x00\x00\x83\xC4\x08\x85\xC0\x74\x42","xx????xxxx????xx????xxxxxxx");
   
   DWORD aIntersectSegment = FindPattern(Crossfire,0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","xxxxxxxxxxxxxxxx????");
   
@@ -127,12 +128,14 @@ while(!ex3mpliReady) {
   Writelog("  #define PlayerCrouchSpeed \t0x00%X",pCrouchSpeed) - CShell;
   Writelog("  #define KnifeRange \t0x00%X",KnifeRange) - CShell;
   Writelog("  #define KnifeDamage \t0x00%X",KnifeDamage) - CShell;
+  Writelog("  #define GutlingDelay \t0x00%X",GutlingDelay) - CShell;
   Writelog("");
   Writelog("//======================== Other ========================\\");
   Writelog(" ");
   Writelog("  #define ModelNode \t0x00%X",ModelNode) - CShell;
   Writelog("  #define BagMgr 0x00%X",BagMgr) - CShell;
   Writelog("  #define DamageZone \t0x00%X",DamageZone) - CShell;
+  Writelog("  #define NoKnockBack \t0x00%X",NoKnockBack) - CShell;
   ExitProcess(0);
   }
 }
