@@ -3,12 +3,17 @@
 #include "Log.h"
 #include "Pattern.h"
 
-void ex3mpli()
-{
-  while(1) {
+bool ex3mpliReady() {
+  if (GetModuleHandleA("ClientFx.fxd") != 0 && GetModuleHandleA("CShell.dll") != 0)
+    return 1;
+  return 0;
+}
+
+void ex3mpli() {
+while(!ex3mpliReady) {
+  Sleep(100)
+} while(1) {
   zSize = 0x500000; 
-  DWORD CShell      = (DWORD)GetModuleHandleA("CShell.dll");
-  DWORD Crossfire   = (DWORD)GetModuleHandleA("crossfire.exe");
   
   DWORD WeaponMgr = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x04\xB1\xD9\xE8","xx????xxxxx");
   WeaponMgr = *(DWORD*)(WeaponMgr + 0x2);
@@ -73,67 +78,54 @@ void ex3mpli()
   Writelog("");
   Writelog("//=================== Crossfire Engine ===================\\");
   Writelog("");
-  Writelog("  #define WallArray \t0x00%X",WallArray);
-  Writelog("  #define SeeGhost \t0x00%X",SeeGhost);
-  Writelog("  #define aIntersectSegment \t0x00%X",aIntersectSegment);
+  Writelog("  #define WallArray \t0x00%X",WallArray) - Crossfire;
+  Writelog("  #define SeeGhost \t0x00%X",SeeGhost) - Crossfire;
+  Writelog("  #define aIntersectSegment \t0x00%X",aIntersectSegment) - Crossfire;
   Writelog("");
   Writelog("//=================== Push To Console ===================\\");
   Writelog(" ");
-  Writelog("  #define aILTClient \t0x00%X",aILTClient);
-  Writelog("  #define PTCOffset \t0x00%X",PTCOffset);
+  Writelog("  #define aILTClient \t0x00%X",aILTClient) - CShell;
+  Writelog("  #define PTCOffset \t0x00%X",PTCOffset) - CShell;
   Writelog("");
   Writelog("//=================== PlayerBasicInfo ===================\\");
   Writelog("");
-  Writelog("  #define PlayerBasicInfo \t0x00%X",PlayerBasicInfo);
-  Writelog("  #define C4PlantTime \t0x00%X",C4PlantTime);
-  Writelog("  #define PlayerMgr \t0x00%X",PlayerMgr);
+  Writelog("  #define PlayerBasicInfo \t0x00%X",PlayerBasicInfo) - CShell - CShell;
+  Writelog("  #define C4PlantTime \t0x00%X",C4PlantTime) - CShell;
+  Writelog("  #define PlayerMgr \t0x00%X",PlayerMgr) - CShell;
   Writelog("");
   Writelog("//========================= ESP =========================\\");
   Writelog(" ");
-  Writelog("  #define aLTClientShell \t0x00%X",aLTClientShell);
-  Writelog("  #define CPlayerStart \t0x00%X",CPlayerStart);
-  Writelog("  #define MEOffset \t0x00%X",MEOffset);
-  Writelog("  #define CPlayerSize \t0x00%X",CPlayerSize);
-  Writelog("  #define aLTModel \t0x00%X",aLTModel);
-  Writelog("  #define aCLTPlayerClient \t0x00%X",aCLTPlayerClient);
-  Writelog("  #define oCLTPlayerClient \t0x00%X",oCLTPlayerClient);
+  Writelog("  #define aLTClientShell \t0x00%X",aLTClientShell) - CShell;
+  Writelog("  #define CPlayerStart \t0x00%X",CPlayerStart) - CShell;
+  Writelog("  #define MEOffset \t0x00%X",MEOffset) - CShell;
+  Writelog("  #define CPlayerSize \t0x00%X",CPlayerSize) - CShell;
+  Writelog("  #define aLTModel \t0x00%X",aLTModel) - CShell;
+  Writelog("  #define aCLTPlayerClient \t0x00%X",aCLTPlayerClient) - CShell;
+  Writelog("  #define oCLTPlayerClient \t0x00%X",oCLTPlayerClient) - CShell;
   Writelog("");
   Writelog("//===================== Weapon Log =====================\\");
   Writelog("");
-  Writelog("  #define WeaponMgr \t0x00%X",WeaponMgr);
-  Writelog("  #define NoReload \t0x00%X",NoReload);
-  Writelog("  #deinfe FastChange \t0x00%X",FastChange);
-  Writelog("  #define FastKnife1 \t0x00%X",FastKnife1);
-  Writelog("  #define FastKnife2 \t0x00%X",FastKnife2);
-  Writelog("  #define AmmoDamge \t0x0%X",AmmoDamage);
+  Writelog("  #define WeaponMgr \t0x00%X",WeaponMgr) - CShell;
+  Writelog("  #define NoReload \t0x00%X",NoReload) - CShell;
+  Writelog("  #deinfe FastChange \t0x00%X",FastChange) - CShell;
+  Writelog("  #define FastKnife1 \t0x00%X",FastKnife1) - CShell;
+  Writelog("  #define FastKnife2 \t0x00%X",FastKnife2) - CShell;
+  Writelog("  #define AmmoDamge \t0x0%X",AmmoDamage) - CShell;
   Writelog("");
   Writelog("//======================== Other ========================\\");
   Writelog(" ");
-  Writelog("  #define ModelNode \t0x00%X",ModelNode);
-  Writelog("  #define BagMgr 0x00%X",BagMgr);
-  Writelog("  #define DamageZone \t0x00%X",DamageZone);
+  Writelog("  #define ModelNode \t0x00%X",ModelNode) - CShell;
+  Writelog("  #define BagMgr 0x00%X",BagMgr) - CShell;
+  Writelog("  #define DamageZone \t0x00%X",DamageZone) - CShell;
   ExitProcess(0);
   }
-}
-bool ex3mpliReady() {
-  if (GetModuleHandleA("ClientFx.fxd") != 0 && GetModuleHandleA("CShell.dll") != 0)
-    return 1;
-  return 0;
-}
-
-void ex3mpliWait() {
-  while(!ex3mpliReady())
-  Sleep(100);
-  while(1) {
-	  ex3mpli();
-}
 }
 
 extern "C" __declspec(dllexport) BOOL WINAPI DllMain (HMODULE hDll, DWORD dwReason, LPVOID lpReserved) {
   DisableThreadLibraryCalls(hDll);
   if (dwReason==DLL_PROCESS_ATTACH) {
   logging(hDll);
-  CreateThread(0,0,(LPTHREAD_START_ROUTINE)ex3mpliWait,0,0,0);
+  CreateThread(NULL,NULL,(LPTHREAD_START_ROUTINE)ex3mpli,NULL,NULL,NULL);
 }
   return TRUE;
 }
