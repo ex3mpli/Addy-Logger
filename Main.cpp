@@ -5,9 +5,6 @@
 
 void ex3mpli()
 {
-  while(!ex3mpliReady()) {
-  Sleep(100);
-}
   while(1) {
   zSize = 0x500000; 
   DWORD CShell      = (DWORD)GetModuleHandleA("CShell.dll");
@@ -123,11 +120,20 @@ bool ex3mpliReady() {
     return 1;
   return 0;
 }
+
+void ex3mpliWait() {
+  while(!ex3mpliReady())
+  Sleep(100);
+  while(1) {
+	  ex3mpli();
+}
+}
+
 extern "C" __declspec(dllexport) BOOL WINAPI DllMain (HMODULE hDll, DWORD dwReason, LPVOID lpReserved) {
   DisableThreadLibraryCalls(hDll);
   if (dwReason==DLL_PROCESS_ATTACH) {
   logging(hDll);
-  CreateThread(0,0,(LPTHREAD_START_ROUTINE)ex3mpli,0,0,0);
+  CreateThread(0,0,(LPTHREAD_START_ROUTINE)ex3mpliWait,0,0,0);
 }
   return TRUE;
 }
