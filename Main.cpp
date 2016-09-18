@@ -3,12 +3,6 @@
 #include "Log.h"
 #include "Pattern.h"
 
-bool ex3mpliReady() {
-  if (GetModuleHandleA( "ClientFx.fxd" ) != NULL && GetModuleHandleA( "CShell.dll" ) != NULL)
-    return true;
-  return false;
-}
-
 void ex3mpli()
 {
   while (!ex3mpliReady()) {
@@ -19,43 +13,120 @@ void ex3mpli()
   DWORD CShell      = (DWORD)GetModuleHandleA("CShell.dll");
   DWORD Crossfire   = (DWORD)GetModuleHandleA("crossfire.exe");
   
-  DWORD WeaponMgr         = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x04\xB1\xD9\xE8","xx????xxxxx");
-  DWORD PlayerBasicInfo   = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x69\xC0\x00\x00\x00\x00", "xx????xxxxx????");
-  DWORD WallArray         = FindPattern(0x400000,0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","x?xx????xx????x");
-  DWORD DamageZone        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8D\x4C\x24\x24\x51\x8D\x54\x24\x34\x52","x????xxxxxxxxxx");
-  DWORD ModelNode         = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x89\x44\x0F\x54\x8B\x15\x00\x00\x00\x00\x8B\x04\x17\x3B\xC3\x7C\x0C\x83\xF8\x64\x7D\x07","xx????xxxxxxxxx????xxxxxxxxxxxx");
-  DWORD NoReload          = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x98\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00", "xx????xx????");
-  DWORD FastChange        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00","xx????xx????");
-  DWORD FastKnife1        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x9C\xB9\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\xA6","xxx????xxxxxxxxxxx");
-  DWORD FastKnife2        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\xD9\x9C\xB8\x00\x00\x00\x00\x8B\x4C\x24\x14","xxx????xxxx");
-  DWORD AmmoDamage        = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\xD9\x83\x00\x00\x00\x00\x51\x8B\xCE\xD9\x1C\x24\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x6A\x00","x????xxx????xx????xxxxxxx????xxx????xxx????xx");
+  DWORD WeaponMgr = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x04\xB1\xD9\xE8","xx????xxxxx");
+  WeaponMgr = *(DWORD*)(WeaponMgr + 0x2);
   
-  Writelog("_______________________________________________");
-  Writelog("|         | Crossfire Philippines |           |");
-  Writelog("|         |    ex3mpli Logger     |           |");
-  Writelog("|         | Crossfire Philippines |           |");
-  Writelog("_______________________________________________");
+  DWORD PlayerBasicInfo = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x69\xC0\x00\x00\x00\x00", "xx????xxxxx????");
+  
+  DWORD WallArray = FindPattern2(0x400000,0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","x?xx????xx????x");
+  WallArray = *(DWORD*)(WallArray + 0xA);
+  
+  DWORD DamageZone = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8D\x4C\x24\x24\x51\x8D\x54\x24\x34\x52","x????xxxxxxxxxx");
+  
+  DWORD ModelNode = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x89\x44\x0F\x54\x8B\x15\x00\x00\x00\x00\x8B\x04\x17\x3B\xC3\x7C\x0C\x83\xF8\x64\x7D\x07","xx????xxxxxxxxx????xxxxxxxxxxxx");
+  ModelNode = *(DWORD*)(ModelNode + 0x2);
+  
+  DWORD NoReload = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\xD9\x98\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00", "xx????xx????");
+  
+  SeeGhost = FindPattern2(Crossfire, 0xFFFFFF, (BYTE *)"\x75\xFF\x83\x0D\xFF\xFF\xFF\xFF\x01\xB8\xFF\xFF\xFF\xFF\xE8","x?xx????xx????x");
+	SeeGhost = *(DWORD*)(SeeGhost + 0xA);
+  
+  DWORD aLTClientShell = FindPattern2(CShell, 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x50\x8D\x44\x24\x10\x50\x81\xC1\x00\x00\x00\x00","xx????xxxxxxxx????");
+  aLTClientShell = *(DWORD*)(aLTClientShell + 0x2);
+  
+  DWORD CPlayerStart = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\x0F\xB6\x8E\x00\x00\x00\x00\x69\xC9\x00\x00\x00\x00\x8A\x84\x31\x00\x00\x00\x00\x5E\xC3","xxx????xx????xxx????xx");
+  CPlayerStart = *(DWORD*)(CPlayerStart + 0x3);
+  
+  DWORD MEOffset = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x8A\x84\x31\x00\x00\x00\x00\x5E\xC3","xxx????xx");
+  MEOffset = *(DWORD*)(MEOffset + 0x3);
+  
+  DWORD CPlayerSize = FindPattern(CShell,0xFFFFFF,(PBYTE)"\x69\xC9\x00\x00\x00\x00\x8A\x84\x31\x00\x00\x00\x00\x5E\xC3","xx????xxx????xx");
+  CPlayerSize = *(DWORD*)(CPlayerSize + 0x2);
+  
+  DWORD aLTModel = FindPattern(CShell, 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x44\x24\x0C\x8B\x11","xx????xxxxxx");
+  aLTModel = *(DWORD*)(aLTModel + 0x2);
+  
+  DWORD aCLTPlayerClient = FindPattern(CShell, 0xFFFFFF, (PBYTE)"\xB9\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x68\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x59\xC3\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\x6A\x04\x68\x00\x00\x00\x00","x????x????x????x????xxxxxxxxxxxxxxx????");
+  aCLTPlayerClient = *(DWORD*)(aCLTPlayerClient + 0x1);
+  
+  DWORD oCLTPlayerClient = FindPattern(CShell, 0xFFFFFF, (PBYTE)"\x39\x55\x00\x74\x00\x8B\x4D\x00\x8B\x01\x8B\x90\x00\x00\x00\x00\xFF\xD2","xx?x?xx?xxxx????xx");
+  
+  DWORD C4PlantTime = FindPattern2(CShell.dll, 0xFFFFFF, (PBYTE)"\xD9\x5C\x08\x7C\x8B\x4C\x24\x30", "xxxxxxxx");
+  C4PlantTime = *(DWORD *)(C4PlantTime + 0x03);
+  
+  PlayerMgr = FindPattern2(CShell, 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x69\xC0\x00\x00\x00\x00\xD9\x5C\x08\x0C\x8B\x4C\x24\x30", "xx????xxxxx????xxxxxxxx");
+  PlayerMgr = (DWORD)*(DWORD *)(PlayerMgr + 0x2);
+  
+  DWORD FastChange        = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00","xx????xx????");
+  DWORD FastKnife1        = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\xD9\x9C\xB9\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\xA6","xxx????xxxxxxxxxxx");
+  DWORD FastKnife2        = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\xD9\x9C\xB8\x00\x00\x00\x00\x8B\x4C\x24\x14","xxx????xxxx");
+  DWORD AmmoDamage        = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\xD9\x83\x00\x00\x00\x00\x51\x8B\xCE\xD9\x1C\x24\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x6A\x00","x????xxx????xx????xxxxxxx????xxx????xxx????xx");
+  aIntersectSegment       = FindPattern2(Crossfire,0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","xxxxxxxxxxxxxxxx????");
+  aILTClient              = FindPattern2(CShell, 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x11\x8B\x82\x00\x00\x00\x00","xx????xxxx????");
+  PTCOffset               = FindPattern2(CShell,0xFFFFFF,(PBYTE)"\x8B\x88\x00\x00\x00\x00\x68\x00\x00\x00\x00\xFF\xD1\x8B\x0D\x00\x00\x00\x00\x8B\x11\x8B\x82\x00\x00\x00\x00","xx????x????xxxx????xxxx????");
+  
+  Writelog("    /==============================================\");
+  Writelog("   /============ Crossfire Philippines =============\");
+  Writelog("  /================= Exempli Logger =================\");
+  Writelog(" /============== Crossfire Philippines ===============\");
+  Writelog("/======================================================\");
   Writelog("");
-  Writelog("#define WallArray \t0x00%X",WallArray);
+  Writelog("/=================== Crossfire Engine ===================\");
   Writelog("");
-  Writelog("#define NoReload \t0x00%X",NoReload);
-  Writelog("#define DamageZone \t0x00%X",DamageZone);
-  Writelog("#define WeaponMgr \t0x00%X",WeaponMgr);
-  Writelog("#define ModelNode \t0x00%X" ModelNode);
-  Writelog("#define PlayerBasicInfo \t0x00%X",PlayerBasicInfo);
-  Writelog("#deinfe FastChange \t0x00%X",FastChange);
-  Writelog("#define FastKnife1 \t0x00%X",FastKnife1);
-  Writelog("#define FastKnife2 \t0x00%X",FastKnife2);
-  Writelog("#define AmmoDamge \t0x00%X",AmmoDamage);
-  ExitProcess(false);
+  Writelog("  #define WallArray \t0x00%X",WallArray);
+  Writelog("  #define SeeGhost \t0x00%X",SeeGhost);
+  Writelog("  #define aIntersectSegment \t0x00%X",aIntersectSegment);
+  Writelog("");
+  Writelog("/=================== Push To Console ===================\");
+  Wrtielog("");
+  Writelog("  #define aILTClient \t0x00%X",aILTClient);
+  Writelog("  #define PTCOffset \t0x00%X",PTCOffset);
+  Writelog("");
+  Writelog("/=================== PlayerBasicInfo ===================\");
+  Writelog("");
+  Writelog("  #define PlayerBasicInfo \t0x00%X",PlayerBasicInfo);
+  Writelog("  #define C4PlantTime \t0x00%X",C4PlantTime);
+  Writelog("  #define PlayerMgr \t0x00%X",PlayerMgr);
+  Writelog("");
+  Writelog("/========================= ESP =========================\");
+  Writelog("");
+  Writelog("  #define aLTClientShell \t0x00%X",aLTClientShell);
+  Writelog("  #define CPlayerStart \t0x00%X",CPlayerStart);
+  Writelog("  #define MEOffset \t0x00%X",MEOffset);
+  Writelog("  #define CPlayerSize \t0x00%X",CPlayerSize);
+  Writelog("  #define aLTModel \t0x00%X",aLTModel);
+  Writelog("  #define aCLTPlayerClient \t0x00%X",aCLTPlayerClient);
+  Writelog("  #define oCLTPlayerClient \t0x00%X",oCLTPlayerClient);
+  Writelog("");
+  Writelog("/===================== Weapon Log =====================\");
+  Writelog("");
+  Writelog("  #define WeaponMgr \t0x00%X",WeaponMgr);
+  Writelog("  #define NoReload \t0x00%X",NoReload);
+  Writelog("  #deinfe FastChange \t0x00%X",FastChange);
+  Writelog("  #define FastKnife1 \t0x00%X",FastKnife1);
+  Writelog("  #define FastKnife2 \t0x00%X",FastKnife2);
+  Writelog("  #define AmmoDamge \t0x0%X",AmmoDamage);
+  Writelog("");
+  Writelog("/======================== Other ========================\");
+  Writelog("");
+  Writelog("  #define ModelNode \t0x00%X",ModelNode);
+  Writelog("  #define BagMgr 0x00%X",BagMgr);
+  Writelog("  #define DamageZone \t0x00%X",DamageZone);
+  ExitProcess(0);
   }
 }
 
-extern "C" __declspec(dllexport) BOOL WINAPI DllMain ( HMODULE hDll, DWORD dwReason, LPVOID lpReserved ) {
+bool ex3mpliReady() {
+  if (GetModuleHandleA("ClientFx.fxd") != 0 && GetModuleHandleA("CShell.dll") != 0)
+    return 1;
+  return 0;
+}
+
+extern "C" __declspec(dllexport) BOOL WINAPI DllMain (HMODULE hDll, DWORD dwReason, LPVOID lpReserved) {
   DisableThreadLibraryCalls(hDll);
   if (dwReason==DLL_PROCESS_ATTACH) {
   logging(hDll);
   CreateThread(0,0,(LPTHREAD_START_ROUTINE)ex3mpli,0,0,0);
 }
-  return TRUE;
+  return 1;
 }
