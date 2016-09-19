@@ -13,76 +13,76 @@ void ex3mpli() {
 while(!ex3mpliReady()) {
   Sleep(100);
 } while(true) {
-  zSize = 0x500000; 
+  dwSize = 0x500000; 
   
-  DWORD CShell = (DWORD)GetModuleHandleA("CShell.dll");
-  DWORD Crossfire = (DWORD)GetModuleHandleA("crossfire.exe");
+  DWORD CShell    = (DWORD)GetModuleHandle("CShell.dll");
+  DWORD Crossfire = (DWORD)GetModuleHandle("crossfire.exe");
   
-  DWORD WeaponMgr = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x04\xB1\xD9\xE8","xx????xxxxx");
+  DWORD WeaponMgr = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x04\xB1\xD9\xE8","00????00000");
   WeaponMgr = *(DWORD*)(WeaponMgr + 0x2) - CShell;
   
-  DWORD PlayerBasicInfo = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x69\xC0\x00\x00\x00\x00", "xx????xxxxx????") - CShell;
+  DWORD PlayerBasicInfo = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x69\xC0\x00\x00\x00\x00", "00????00000????") - CShell;
   
-  DWORD WallArray = FindPattern(0x400000,0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","x?xx????xx????x");
+  DWORD WallArray = FindPattern((DWORD)GetModuleHanl("crossfire.exe"),0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","0?00????00????0");
   WallArray = *(DWORD*)(WallArray + 0xA) - Crossfire;
   
-  DWORD DamageZone = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8D\x4C\x24\x24\x51\x8D\x54\x24\x34\x52","x????xxxxxxxxxx") - CShell;
+  DWORD DamageZone = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8D\x4C\x24\x24\x51\x8D\x54\x24\x34\x52","0????0000000000") - CShell;
   
-  DWORD ModelNode = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x89\x44\x0F\x54\x8B\x15\x00\x00\x00\x00\x8B\x04\x17\x3B\xC3\x7C\x0C\x83\xF8\x64\x7D\x07","xx????xxxxxxxxx????xxxxxxxxxxxx");
+  DWORD ModelNode = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x89\x44\x0F\x54\x8B\x15\x00\x00\x00\x00\x8B\x04\x17\x3B\xC3\x7C\x0C\x83\xF8\x64\x7D\x07","00????000000000????000000000000");
   ModelNode = *(DWORD*)(ModelNode + 0x2)  - CShell;
   
-  DWORD NoReload = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\xD9\x98\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00", "xx????xx????");
+  DWORD NoReload = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\xD9\x98\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00", "00????00????");
   
-  DWORD SeeGhost = FindPattern(0x400000, 0xFFFFFF, (BYTE *)"\x75\xFF\x83\x0D\xFF\xFF\xFF\xFF\x01\xB8\xFF\xFF\xFF\xFF\xE8","x?xx????xx????x");
+  DWORD SeeGhost = FindPattern((DWORD)GetModuleHanl("crossfire.exe"), 0xFFFFFF, (BYTE *)"\x75\xFF\x83\x0D\xFF\xFF\xFF\xFF\x01\xB8\xFF\xFF\xFF\xFF\xE8","0?00????00????0");
   SeeGhost = *(DWORD*)(SeeGhost + 0xA)  - Crossfire;
   
-  DWORD aLTClientShell = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x50\x8D\x44\x24\x10\x50\x81\xC1\x00\x00\x00\x00","xx????xxxxxxxx????");
+  DWORD aLTClientShell = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x50\x8D\x44\x24\x10\x50\x81\xC1\x00\x00\x00\x00","00????00000000????");
   aLTClientShell = *(DWORD*)(aLTClientShell + 0x2)  - CShell;
   
-  DWORD CPlayerStart = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x0F\xB6\x8E\x00\x00\x00\x00\x69\xC9\x00\x00\x00\x00\x8A\x84\x31\x00\x00\x00\x00\x5E\xC3","xxx????xx????xxx????xx");
+  DWORD CPlayerStart = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x0F\xB6\x8E\x00\x00\x00\x00\x69\xC9\x00\x00\x00\x00\x8A\x84\x31\x00\x00\x00\x00\x5E\xC3","000????00????000????00");
   CPlayerStart = *(DWORD*)(CPlayerStart + 0x3)  - CShell;
   
-  DWORD MEOffset = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8A\x84\x31\x00\x00\x00\x00\x5E\xC3","xxx????xx");
+  DWORD MEOffset = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8A\x84\x31\x00\x00\x00\x00\x5E\xC3","000????00");
   MEOffset = *(DWORD*)(MEOffset + 0x3)  - CShell;
   
-  DWORD CPlayerSize = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x69\xC9\x00\x00\x00\x00\x8A\x84\x31\x00\x00\x00\x00\x5E\xC3","xx????xxx????xx");
+  DWORD CPlayerSize = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x69\xC9\x00\x00\x00\x00\x8A\x84\x31\x00\x00\x00\x00\x5E\xC3","00????000????00");
   CPlayerSize = *(DWORD*)(CPlayerSize + 0x2)  - CShell;
   
-  DWORD aLTModel = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x44\x24\x0C\x8B\x11","xx????xxxxxx");
+  DWORD aLTModel = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x44\x24\x0C\x8B\x11","00????000000");
   aLTModel = *(DWORD*)(aLTModel + 0x2)  - CShell;
   
-  DWORD aCLTPlayerClient = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xB9\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x68\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x59\xC3\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\x6A\x04\x68\x00\x00\x00\x00","x????x????x????x????xxxxxxxxxxxxxxx????");
+  DWORD aCLTPlayerClient = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xB9\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x68\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x59\xC3\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\x6A\x04\x68\x00\x00\x00\x00","0????0????0????0????000000000000000????");
   aCLTPlayerClient = *(DWORD*)(aCLTPlayerClient + 0x1)  - CShell;
   
-  DWORD oCLTPlayerClient = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x39\x55\x00\x74\x00\x8B\x4D\x00\x8B\x01\x8B\x90\x00\x00\x00\x00\xFF\xD2","xx?x?xx?xxxx????xx");
+  DWORD oCLTPlayerClient = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x39\x55\x00\x74\x00\x8B\x4D\x00\x8B\x01\x8B\x90\x00\x00\x00\x00\xFF\xD2","00?0?00?0000????00");
   
-  DWORD C4PlantTime = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x5C\x08\x7C\x8B\x4C\x24\x30", "xxxxxxxx");
+  DWORD C4PlantTime = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x5C\x08\x7C\x8B\x4C\x24\x30", "00000000");
   C4PlantTime = *(DWORD *)(C4PlantTime + 0x03)  - CShell;
   
-  DWORD PlayerMgr = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x69\xC0\x00\x00\x00\x00\xD9\x5C\x08\x0C\x8B\x4C\x24\x30", "xx????xxxxx????xxxxxxxx");
+  DWORD PlayerMgr = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x69\xC0\x00\x00\x00\x00\xD9\x5C\x08\x0C\x8B\x4C\x24\x30", "00????00000????00000000");
   PlayerMgr = (DWORD)*(DWORD *)(PlayerMgr + 0x2)  - CShell;
   
-  DWORD BagMgr = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF,(PBYTE)"\x89\x3D\x00\x00\x00\x00\x68\x00\x00\x00\x00", "xx????x????");
+  DWORD BagMgr = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF,(PBYTE)"\x89\x3D\x00\x00\x00\x00\x68\x00\x00\x00\x00", "00????0????");
   BagMgr = *(DWORD*)(BagMgr + 0x2)  - CShell;
 
-  DWORD FastChange        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00","xx????xx????");
-  DWORD FastKnife1        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\xD9\x9C\xB9\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\xA6","xxx????xxxxxxxxxxx");
-  DWORD FastKnife2        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\xD9\x9C\xB8\x00\x00\x00\x00\x8B\x4C\x24\x14","xxx????xxxx") - CShell;
-  DWORD AmmoDamage        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\xD9\x83\x00\x00\x00\x00\x51\x8B\xCE\xD9\x1C\x24\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x6A\x00","x????xxx????xx????xxxxxxx????xxx????xxx????xx") - CShell;
-  DWORD NoSpread          = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9C\x39\xAC\x26\x00\x00","xxxxx??") - CShell;
-  DWORD NoWeight          = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x99\xCC\x0A\x00\x00", "xxxx??") - CShell;
-  DWORD Overlay           = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9C\xB9\x28\x24\x00\x00", "xxxxx??") - CShell;
-  DWORD pCrouchSpeed      = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x5C\x08\x0C", "xxxx") - CShell;
-  DWORD KnifeRange        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9C\xB9\x28\x0A\x00\x00", "xxxxx??") - CShell;
-  DWORD KnifeDamage       = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x94\x39\xB4\xF5\xFF\xFF", "xxxxxxx") - CShell;
-  DWORD NoKnockBack       = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9C\xBA\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\x9D",  "xxx????xxxxxxxxxxx");
-  DWORD GutlingDelay      = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x99\x00\x00\x00\x00\x83\xC4\x04\x68\x00\x00\x00\x00\x53\xE8\x00\x00\x00\x00\x83\xC4\x08\x85\xC0\x74\x42","xx????xxxx????xx????xxxxxxx");
+  DWORD FastChange        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00","00????00????");
+  DWORD FastKnife1        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\xD9\x9C\xB9\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\xA6","000????00000000000");
+  DWORD FastKnife2        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\xD9\x9C\xB8\x00\x00\x00\x00\x8B\x4C\x24\x14","000????0000") - CShell;
+  DWORD AmmoDamage        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x68\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\xD9\x83\x00\x00\x00\x00\x51\x8B\xCE\xD9\x1C\x24\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x8B\xCE\xE8\x00\x00\x00\x00\x6A\x00","0????000????00????0000000????000????000????00") - CShell;
+  DWORD NoSpread          = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9C\x39\xAC\x26\x00\x00","00000??") - CShell;
+  DWORD NoWeight          = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x99\xCC\x0A\x00\x00", "0000??") - CShell;
+  DWORD Overlay           = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9C\xB9\x28\x24\x00\x00", "00000??") - CShell;
+  DWORD pCrouchSpeed      = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x5C\x08\x0C", "0000") - CShell;
+  DWORD KnifeRange        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9C\xB9\x28\x0A\x00\x00", "00000??") - CShell;
+  DWORD KnifeDamage       = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x94\x39\xB4\xF5\xFF\xFF", "0000000") - CShell;
+  DWORD NoKnockBack       = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x9C\xBA\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\x9D",  "000????00000000000");
+  DWORD GutlingDelay      = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\xD9\x99\x00\x00\x00\x00\x83\xC4\x04\x68\x00\x00\x00\x00\x53\xE8\x00\x00\x00\x00\x83\xC4\x08\x85\xC0\x74\x42","00????0000????00????0000000");
   
-  DWORD aIntersectSegment = FindPattern(0x400000,0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","xxxxxxxxxxxxxxxx????") - Crossfire;
+  DWORD aIntersectSegment = FindPattern((DWORD)GetModuleHanl("crossfire.exe"),0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","0000000000000000????") - Crossfire;
   
-  DWORD aILTClient        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x11\x8B\x82\x00\x00\x00\x00","xx????xxxx????") - CShell;
+  DWORD aILTClient        = FindPattern((DWORD)GetModuleHandleA("CShell.dll"), 0xFFFFFF, (PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x11\x8B\x82\x00\x00\x00\x00","00????0000????") - CShell;
   
-  DWORD PTCOffset         = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8B\x88\x00\x00\x00\x00\x68\x00\x00\x00\x00\xFF\xD1\x8B\x0D\x00\x00\x00\x00\x8B\x11\x8B\x82\x00\x00\x00\x00","xx????x????xxxx????xxxx????") - CShell;
+  DWORD PTCOffset         = FindPattern((DWORD)GetModuleHandleA("CShell.dll"),0xFFFFFF,(PBYTE)"\x8B\x88\x00\x00\x00\x00\x68\x00\x00\x00\x00\xFF\xD1\x8B\x0D\x00\x00\x00\x00\x8B\x11\x8B\x82\x00\x00\x00\x00","00????0????0000????0000????") - CShell;
   
   Writelog("    //==============================================\\");
   Writelog("   //============ Crossfire Philippines =============\\");
