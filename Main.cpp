@@ -12,7 +12,7 @@ bool ExempliReady() {
 void Exempli() {
 while(!ExempliReady()) {
   Sleep(100);
-} while(true) {
+} while(1) {
   dwSize = 0x500000; 
   
   DWORD CShell    = (DWORD)GetModuleHandle("CShell.dll");
@@ -139,13 +139,13 @@ while(!ExempliReady()) {
   Writelog("  #define BagMgr 0x00%X",BagMgr);
   Writelog("  #define DamageZone \t0x00%X",DamageZone);
   Writelog("  #define NoKnockBack \t0x00%X",NoKnockBack);
-  ExitProcess(false);
+  ExitProcess(0);
   }
 }
 
-extern "C" __declspec(dllexport) BOOL WINAPI DllMain (HMODULE hDll, DWORD dwReason, LPVOID lpReserved) {
+extern "C" __declspec(dllexport) BOOL WINAPI DllMain (HMODULE hDll, DWORD wReason, LPVOID lpReserved) {
   DisableThreadLibraryCalls(hDll);
-  if (dwReason==DLL_PROCESS_ATTACH) {
+  if (wReason==DLL_PROCESS_ATTACH) {
   logging(hDll);
   CreateThread(NULL,NULL,(LPTHREAD_START_ROUTINE)Exempli,NULL,NULL,NULL);
 }
