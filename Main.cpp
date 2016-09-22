@@ -3,14 +3,14 @@
 #include "Log.h"
 #include "Pattern.h"
 
-bool ex3mpliReady() {
+bool ExempliReady() {
   if (GetModuleHandleA("ClientFx.fxd") != NULL && GetModuleHandleA("CShell.dll") != NULL)
     return true;
   return false;
 }
 
-void ex3mpli() {
-while(!ex3mpliReady()) {
+void Exempli() {
+while(!ExempliReady()) {
   Sleep(100);
 } while(true) {
   dwSize = 0x500000; 
@@ -147,7 +147,7 @@ extern "C" __declspec(dllexport) BOOL WINAPI DllMain (HMODULE hDll, DWORD dwReas
   DisableThreadLibraryCalls(hDll);
   if (dwReason==DLL_PROCESS_ATTACH) {
   logging(hDll);
-  CreateThread(NULL,NULL,(LPTHREAD_START_ROUTINE)ex3mpli,NULL,NULL,NULL);
+  CreateThread(NULL,NULL,(LPTHREAD_START_ROUTINE)Exempli,NULL,NULL,NULL);
 }
   return TRUE;
 }
