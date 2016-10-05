@@ -1,5 +1,3 @@
-DWORD dwSize;
-
 bool bCompare2(const BYTE* pData, const BYTE* bMask, const char* szMask)
 {
   for(; *szMask; ++szMask, ++pData, ++bMask)
