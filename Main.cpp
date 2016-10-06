@@ -16,15 +16,16 @@ while(!ExempliReady()) {
   dwSize = 0x500000; 
   
   DWORD CShell    = (DWORD)GetModuleHandle("CShell.dll");
-  DWORD Crossfire = (DWORD)GetModuleHandle("crossfire.exe");
+  DWORD CF = (DWORD)GetModuleHandle("crossfire.exe");
   
-	aIntersectSegment 			= FindPattern2(Crossfire, 0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","0000000000000000????");
-	aIntersectSegment 			= (aIntersectSegment + 0x3) - CShell;
-  EndSceneEngine 					= FindPattern2(Crossfire, 0xFFFFFF,(PBYTE)"\x8B\x08\x8B\x91\x00\x00\x00\x00\x50\xFF\xD2\x85\xC0\x8D\x4C\x24\x00\x0F\x94\xC3\xE8\x00\x00\x00\x00\x8A\xC3\x8B", "0000????00000000?0000????000") - Crossfire;
-	MidFuncEngine 					= FindPattern2(Crossfire, 0xFFFFFF,(PBYTE)"\x8B\x08\x8B\x91\x00\x00\x00\x00\x57\x6A\x00\x53\x6A\x00\x6A\x00\x6A\x00\x50\xFF\xD2\x5F\x5E\x5D\x5B\xC2\x00\x00", "0000????00?00?0?0?00000000??") - Crossfire;
+	aIntersectSegment 			= FindPattern2(CF, 0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","0000000000000000????");
+	aIntersectSegment 			= (aIntersectSegment + 0x3) - CF;
   
-	DWORD WallArray 				= FindPattern2(Crossfire, 0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","0?00????00????0");
-  WallArray 							= *(DWORD*)(WallArray + 0xA) - Crossfire;
+	EndSceneEngine 					= FindPattern2(CF, 0xFFFFFF,(PBYTE)"\x8B\x08\x8B\x91\x00\x00\x00\x00\x50\xFF\xD2\x85\xC0\x8D\x4C\x24\x00\x0F\x94\xC3\xE8\x00\x00\x00\x00\x8A\xC3\x8B", "0000????00000000?0000????000") - CF;
+	MidFuncEngine 					= FindPattern2(CF, 0xFFFFFF,(PBYTE)"\x8B\x08\x8B\x91\x00\x00\x00\x00\x57\x6A\x00\x53\x6A\x00\x6A\x00\x6A\x00\x50\xFF\xD2\x5F\x5E\x5D\x5B\xC2\x00\x00", "0000????00?00?0?0?00000000??") - CF;
+  
+	DWORD WallArray 				= FindPattern2(CF, 0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","0?00????00????0");
+  WallArray 							= *(DWORD*)(WallArray + 0xA) - CF;
 	
   DWORD WeaponMgr 				= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x04\xB1\xD9\xE8","00????00000");
   WeaponMgr 							= *(DWORD*)(WeaponMgr + 0x2) - CShell;
