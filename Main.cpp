@@ -11,17 +11,17 @@ bool ExempliReady() {
 
 void Exempli() {
 while(!ExempliReady()) {
-  Sleep(100);
-} while(1) {
+  Sleep(50);
+} while(true) {
   dwSize = 0x500000; 
   
   DWORD CShell    = (DWORD)GetModuleHandle("CShell.dll");
   DWORD CF = (DWORD)GetModuleHandle("crossfire.exe");
   
-	aIntersectSegment 			= FindPattern2(CF, 0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","0000000000000000????");
+	DWORD aIntersectSegment = FindPattern2(CF, 0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","0000000000000000????");
 	aIntersectSegment 			= (aIntersectSegment + 0x3) - CF;
   
-	EndSceneEngine 					= FindPattern2(CF, 0xFFFFFF,(PBYTE)"\x8B\x08\x8B\x91\x00\x00\x00\x00\x50\xFF\xD2\x85\xC0\x8D\x4C\x24\x00\x0F\x94\xC3\xE8\x00\x00\x00\x00\x8A\xC3\x8B", "0000????00000000?0000????000") - CF;
+	DWORD EndSceneEngine 		= FindPattern2(CF, 0xFFFFFF,(PBYTE)"\x8B\x08\x8B\x91\x00\x00\x00\x00\x50\xFF\xD2\x85\xC0\x8D\x4C\x24\x00\x0F\x94\xC3\xE8\x00\x00\x00\x00\x8A\xC3\x8B", "0000????00000000?0000????000") - CF;
 	MidFuncEngine 					= FindPattern2(CF, 0xFFFFFF,(PBYTE)"\x8B\x08\x8B\x91\x00\x00\x00\x00\x57\x6A\x00\x53\x6A\x00\x6A\x00\x6A\x00\x50\xFF\xD2\x5F\x5E\x5D\x5B\xC2\x00\x00", "0000????00?00?0?0?00000000??") - CF;
   
 	DWORD WallArray 				= FindPattern2(CF, 0xFFFFFF,(PBYTE)"\x75\x00\x83\x0D\x00\x00\x00\x00\x01\xB8\x00\x00\x00\x00\xE8","0?00????00????0");
@@ -30,7 +30,7 @@ while(!ExempliReady()) {
   DWORD WeaponMgr 				= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x8B\x04\xB1\xD9\xE8","00????00000");
   WeaponMgr 							= *(DWORD*)(WeaponMgr + 0x2) - CShell;
   
-	ModelNode 							= FindPattern2(CShell,0xFFFFFF,(PBYTE)"\x8B\x15\x00\x00\x00\x00\x83\xC4\x20\x33\xED\x33\xFF\x8B\x4C\x24\x30\x3B\xCB","00????0000000000000");
+	DWORD ModelNode 				= FindPattern2(CShell,0xFFFFFF,(PBYTE)"\x8B\x15\x00\x00\x00\x00\x83\xC4\x20\x33\xED\x33\xFF\x8B\x4C\x24\x30\x3B\xCB","00????0000000000000");
 	ModelNode 							= *(DWORD*)(ModelNode + 0x2) - CShell;
   
 	DWORD SeeGhost 					= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x75\xFF\x83\x0D\xFF\xFF\xFF\xFF\x01\xB8\xFF\xFF\xFF\xFF\xE8","0?00????00????0");
@@ -96,13 +96,13 @@ while(!ExempliReady()) {
   DWORD KnifeDamage       = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x8B\x94\x39\xB4\xF5\xFF\xFF", "0000000") - CShell;
   DWORD NoKnockBack       = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\xD9\x9C\xBA\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\x9D",  "000????00000000000") - CShell;
   DWORD GutlingDelay      = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\xD9\x99\x00\x00\x00\x00\x83\xC4\x04\x68\x00\x00\x00\x00\x53\xE8\x00\x00\x00\x00\x83\xC4\x08\x85\xC0\x74\x42","00????0000????00????0000000") - CShell;
-  MoveSpeedPenalty        = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00\x83\xC4\x08\x85\xC0","00????00????00000") - CShell;
-  VisibleZoneIndex        = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x56\x69\x73\x69\x62\x6C\x65\x5A\x6F\x6E\x65\x49\x6E\x64\x65\x78","0000000000000000")- CShell;
-  DamagePerSec    	 			= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x44\x61\x6D\x61\x67\x65\x50\x65\x72\x53\x65\x63","000000000000") - CShell;
+  DWORD MoveSpeedPenalty  = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00\x83\xC4\x08\x85\xC0","00????00????00000") - CShell;
+  DWORD VisibleZoneIndex  = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x56\x69\x73\x69\x62\x6C\x65\x5A\x6F\x6E\x65\x49\x6E\x64\x65\x78","0000000000000000")- CShell;
+  DWORD DamagePerSec    	= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x44\x61\x6D\x61\x67\x65\x50\x65\x72\x53\x65\x63","000000000000") - CShell;
   DWORD oCLTPlayerClient 	= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x39\x55\x00\x74\x00\x8B\x4D\x00\x8B\x01\x8B\x90\x00\x00\x00\x00\xFF\xD2","00?0?00?0000????00") - CShell;
 	DWORD NoReload 					= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\xD9\x98\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00", "00????00????") - CShell;
 	DWORD PlayerBasicInfo 	= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x8B\x0D\x00\x00\x00\x00\x83\xC4\x04\x69\xC0\x00\x00\x00\x00", "00????00000????") - CShell;
-  DamageZone       				= FindPattern2(CShell, 0xFFFFFF, (PBYTE)"\x44\x61\x6D\x61\x67\x65\x5A\x6F\x6E\x65","0000000000") - CShell;
+  DWORD DamageZone       	= FindPattern2(CShell, 0xFFFFFF, (PBYTE)"\x44\x61\x6D\x61\x67\x65\x5A\x6F\x6E\x65","0000000000") - CShell;
 	
 	
   Writelog("    //==============================================\\");
@@ -170,7 +170,7 @@ while(!ExempliReady()) {
   Writelog("  #define DamagePerMeter \t0x00%X ",DamagePerMeter);
   Writelog("  #define Offset_Yaw \t0x00%X ",Offset_Yaw);
   Writelog("  #define Offset_Pitch \t0x00%X ",Offset_Pitch);
-  ExitProcess(0);
+  ExitProcess(false);
   }
 }
 
