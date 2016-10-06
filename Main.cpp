@@ -10,12 +10,15 @@ bool ExempliReady() {
 }
 
 void Exempli() {
-while(!ExempliReady()) {
-  Sleep(50);
-} while(true) {
+	Sleep(1000);
+	dwStartAddress = 0x400000;
+	do {
+			dwStartAddress = (DWORD)GetModuleHandleA("crossfire.exe");
+			Sleep(100);
+		}	while(!dwStartAddress);
   dwSize = 0x500000; 
   
-  DWORD CShell    = (DWORD)GetModuleHandle("CShell.dll");
+	DWORD CShell    = (DWORD)GetModuleHandle("CShell.dll");
   DWORD CF = (DWORD)GetModuleHandle("crossfire.exe");
   
 	DWORD aIntersectSegment = FindPattern2(CF, 0xFFFFFF, (PBYTE)"\x5D\xC3\xCC\x55\x8B\xEC\x8B\x45\x0C\x50\x8B\x4D\x08\x51\x8B\x15\x00\x00\x00\x00","0000000000000000????");
