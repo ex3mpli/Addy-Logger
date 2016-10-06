@@ -83,6 +83,7 @@ while(!ExempliReady()) {
 	DWORD PTCOffset 				= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\x8B\x88\x00\x00\x00\x00\x68\x00\x00\x00\x00\xFF\xD1\x8B\x0D\x00\x00\x00\x00\x8B\x11\x8B\x82\x00\x00\x00\x00", "00????0????0000????0000????");
 	if(PTCOffset)PTCOffset 	= *(DWORD*) (PTCOffset + 0x2) - CShell;
 	
+	DWORD Bypass31_0 				= FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\xE8\x00\x00\x00\x00\x83\xC4\x04\x85\xC0\x74\x48\x8B\x0D\x00\x00\x00\x00\x8B\x11", "0????000000000????00");
 	DWORD FastChange        = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\xD9\x9A\x00\x00\x00\x00\x55\xE8\x00\x00\x00\x00","00????00????") - CShell;
   DWORD FastKnife1        = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\xD9\x9C\xB9\x00\x00\x00\x00\x83\xC7\x01\x83\xC4\x04\x3B\x7D\x00\x72\xA6","000????00000000000") - CShell;
   DWORD FastKnife2        = FindPattern2(CShell, 0xFFFFFF,(PBYTE)"\xD9\x9C\xB8\x00\x00\x00\x00\x8B\x4C\x24\x14","000????0000") - CShell;
@@ -161,6 +162,7 @@ while(!ExempliReady()) {
   Writelog("  #define DamageZone \t0x00%X ",DamageZone);
   Writelog("  #define NoKnockBack \t0x00%X ",NoKnockBack);
   Writelog("  #define Bypass28_3 \t0x00%X ",Bypass28_3);
+	Writelog("  #define Bypass31_0 \t0x00%X ",Bypass31_0);
   Writelog("  #define MoveSpeedPenalty \t0x00%X ",MoveSpeedPenalty);
   Writelog("  #define VisibleZoneIndex \t0x00%X ",VisibleZoneIndex);
   Writelog("  #define DamagePerSec \t0x00%X ",DamagePerSec);
