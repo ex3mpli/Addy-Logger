@@ -179,9 +179,12 @@ void Exempli() {
 
 extern "C" __declspec(dllexport) BOOL WINAPI DllMain (HMODULE hDll, DWORD wReason, LPVOID lpReserved) {
   DisableThreadLibraryCalls(hDll);
-  if (wReason==DLL_PROCESS_ATTACH) {
-  logging(hDll);
-  CreateThread(NULL,NULL,(LPTHREAD_START_ROUTINE)Exempli,NULL,NULL,NULL);
-}
-  return TRUE;
+  if (wReason == DLL_PROCESS_ATTACH)
+	{
+  	logging(hDll);
+  	CreateThread(NULL,NULL,(LPTHREAD_START_ROUTINE)Exempli,NULL,NULL,NULL);
+	}
+	return TRUE;
+	if(wReason == DLL_PROCESS_DETACH)
+		file.close;
 }
